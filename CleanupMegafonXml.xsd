@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<xs:complexType name="dataPattern">
+		<xs:attribute name="startsWith" type="xs:string" use="optional" />
+		<xs:attribute name="print" type="xs:boolean" use="optional" />
+		<xs:attribute name="notEquals" type="xs:string" use="optional" />
+		<xs:attribute name="empty" type="xs:boolean" use="optional" />
+		<xs:attribute name="equals" type="xs:string" use="optional" />
+		<xs:attribute name="regex" type="xs:string" use="optional"  />
+		<xs:attribute name="type" type="xs:string" use="optional" />
+	</xs:complexType>
+	<xs:complexType name="cellPattern">
+		<xs:sequence>
+			<xs:element minOccurs="0" name="Data" type="dataPattern" />
+		</xs:sequence>
+		<xs:attribute name="count" type="xs:unsignedByte" use="optional" />
+		<xs:attribute name="empty" type="xs:boolean" use="optional" />
+	</xs:complexType>
+	<xs:element name="Patterns">
+		<xs:complexType>
+			<xs:sequence maxOccurs="unbounded">
+				<xs:element name="RowsToRemove" minOccurs="0">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element maxOccurs="unbounded" name="Row">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="Cell" type="cellPattern"  maxOccurs="unbounded"/>
+									</xs:sequence>
+									<xs:attribute name="id" type="xs:integer" use="required" />
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="DataRow" minOccurs="0">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="Cell" type="cellPattern"  maxOccurs="unbounded"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>
