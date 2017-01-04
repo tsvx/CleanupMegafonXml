@@ -55,7 +55,7 @@ namespace CleanupMegafonXml
 				i++;
 				if (!xrow.MatchesRowPattern(xpDataRow))
 				{
-					Console.Write(" {0}", i);
+					Console.WriteLine(" {0}: {1}", i, xrow.Value);
 					ndr++;
 				}
 			}
@@ -110,15 +110,15 @@ namespace CleanupMegafonXml
 			return xcell == null;
 		}
 
-		static bool MatchesCellPattern(this XElement xcell, XElement xcp)
+		static bool MatchesCellPattern(this XElement xcell, XElement xCellPattern)
 		{
-			var cellIsEmpty = (bool?)xcp.Attribute("empty");
+			var cellIsEmpty = (bool?)xCellPattern.Attribute("empty");
 			if (cellIsEmpty.HasValue)
 			{
 				if (cellIsEmpty.Value ^ !xcell.HasElements)
 					return false;
 			}
-			var xcpData = xcp.Element("Data");
+			var xcpData = xCellPattern.Element("Data");
 			if (xcpData != null)
 			{
 				var xdata = xcell.Element(xmlns + "Data");
